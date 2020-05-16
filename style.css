@@ -1,0 +1,94 @@
+#Game {
+	position: fixed;
+	background: #335533;
+	width: 100%;
+	height: 100%;
+}
+#Interface {
+	position: fixed;
+	background: rgba(0,0,0,0);
+	width: 100%;
+	height: 100%;
+}
+body {
+	padding: 0; margin: 0;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+}
+#menu {
+	position: fixed;
+	width: 100%;
+	top: 5%;
+	bottom: 5%;
+	text-align: center;
+}
+#menu input {
+	position: fixed;
+	text-align: center;
+	width: 20vw;
+	height: 4.8vh;
+	font-size: 3vh;
+	background: rgba(255,255,255,0.5);
+	outline: none;
+	font-family: 'Segoe Script';
+	border: none;
+	margin: 0px;
+	padding: 0px;
+}
+#btnStart {
+	left: 40vw;
+	right: 40vw;
+	top: 40vh;
+	bottom: 55vh;
+}
+#btnNewGame {
+	left: 40vw;
+	right: 40vw;
+	top: 45vh;
+	bottom: 50vh;
+}
+#btnSave {
+	left: 40vw;
+	right: 40vw;
+	top: 45vh;
+	bottom: 50vh;
+}
+#menu input:hover {
+	background: rgba(0,0,0,0.5);
+	cursor: pointer;
+	color: white;
+}
+#controlImg {
+	background: no-repeat url('control.png');
+	background-size: contain;
+	position: fixed;
+	top: 55%;
+	left: 38%;
+	right: 38%;
+	bottom: 5%;
+}
+#head {
+	position: fixed;
+	top: 0%;
+	bottom: 75%;
+	width: 100%;
+	font-family: Chiller;
+	color: #600;
+	font-size: 10vw;
+}
+#bottom {
+	font-size: 3vh;
+	color: #fff;
+	font-family: Chiller;
+	position: fixed;
+	right: 1%;
+	left: 90%;
+	bottom: 1%;
+	top: 95%;
+	white-space: pre;
+}
+@font-face {
+    font-family: 'custom';
+    src: url(fonts/a_BosaNovaCp.TTF) format('truetype');
+}
