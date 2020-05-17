@@ -22,6 +22,14 @@ var craft=[[
 				++player.beltLen;
 				player.belt[player.beltLen-1]={id:null,type:null,count:0};
 				if (player.beltLen==9) craft[1][0].result.name="Максимум ячеек";
+				for (var b=0; b<player.bag.length;++b) {
+					if (player.bag[b].type==4&&player.bag[b].id==4) {
+						player.bag[b].count-=5;
+					}
+					if (player.bag[b].type==4&&player.bag[b].id==5) {
+						player.bag[b].count-=3;
+					}
+				}
 			}
 		}}),
 	newCraft([{type:4,id:4,need:3},{type:4,id:5,need:5}], {type:-1, name:"+5 кг. макс. веса",
@@ -29,6 +37,14 @@ var craft=[[
 			if (player.maxWeight<55) {
 				player.maxWeight+=5;
 				if (player.maxWeight==55) craft[1][1].result.name="Максимальный вес";
+				for (var b=0; b<player.bag.length;++b) {
+					if (player.bag[b].type==4&&player.bag[b].id==4) {
+						player.bag[b].count-=3;
+					}
+					if (player.bag[b].type==4&&player.bag[b].id==5) {
+						player.bag[b].count-=5;
+					}
+				}
 			}
 		}}),
 ]];
