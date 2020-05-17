@@ -226,3 +226,10 @@ function drawGame() {
 	}
 	ctx.restore();
 }
+var endGame=0;
+function drawEndGame() {
+	endGame=lerp(endGame,1,0.01);
+	ctxGUI.beginPath(); ctxGUI.fillStyle="rgba(0,0,0,"+endGame+")";
+	ctxGUI.rect(0,0,ctxGUI.width,ctxGUI.height);
+	guiDraw();
+}
