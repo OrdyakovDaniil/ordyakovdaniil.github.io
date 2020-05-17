@@ -46,15 +46,15 @@ function keyUpHandler(e) {
 				case "KeyR": control.reload = true; break;
 				case "KeyE": control.use = true; break;
 				case "ShiftLeft": control.shift = false; break;
-				case "Digit1": if (player.beltLen>0&&player.itemBelt!=0) {player.itemBelt=0; player.stophit();} break;
-				case "Digit2": if (player.beltLen>1&&player.itemBelt!=1) {player.itemBelt=1; player.stophit();} break;
-				case "Digit3": if (player.beltLen>2&&player.itemBelt!=2) {player.itemBelt=2; player.stophit();} break;
-				case "Digit4": if (player.beltLen>3&&player.itemBelt!=3) {player.itemBelt=3; player.stophit();} break;
-				case "Digit5": if (player.beltLen>4&&player.itemBelt!=4) {player.itemBelt=4; player.stophit();} break;
-				case "Digit6": if (player.beltLen>5&&player.itemBelt!=5) {player.itemBelt=5; player.stophit();} break;
-				case "Digit7": if (player.beltLen>6&&player.itemBelt!=6) {player.itemBelt=6; player.stophit();} break;
-				case "Digit8": if (player.beltLen>7&&player.itemBelt!=7) {player.itemBelt=7; player.stophit();} break;
-				case "Digit9": if (player.beltLen>8&&player.itemBelt!=8) {player.itemBelt=8; player.stophit();} break;
+				case "Digit1": if (player.beltLen>0&&player.itemBelt!=0) {player.itemBelt=0; stophit();} break;
+				case "Digit2": if (player.beltLen>1&&player.itemBelt!=1) {player.itemBelt=1; stophit();} break;
+				case "Digit3": if (player.beltLen>2&&player.itemBelt!=2) {player.itemBelt=2; stophit();} break;
+				case "Digit4": if (player.beltLen>3&&player.itemBelt!=3) {player.itemBelt=3; stophit();} break;
+				case "Digit5": if (player.beltLen>4&&player.itemBelt!=4) {player.itemBelt=4; stophit();} break;
+				case "Digit6": if (player.beltLen>5&&player.itemBelt!=5) {player.itemBelt=5; stophit();} break;
+				case "Digit7": if (player.beltLen>6&&player.itemBelt!=6) {player.itemBelt=6; stophit();} break;
+				case "Digit8": if (player.beltLen>7&&player.itemBelt!=7) {player.itemBelt=7; stophit();} break;
+				case "Digit9": if (player.beltLen>8&&player.itemBelt!=8) {player.itemBelt=8; stophit();} break;
 			}
 		break;
 		case 2: //пауза
