@@ -228,8 +228,9 @@ function drawGame() {
 }
 var endGame=0;
 function drawEndGame() {
-	endGame=lerp(endGame,1,0.01);
+	endGame=lerp(endGame,1,0.02);
 	ctxGUI.beginPath(); ctxGUI.fillStyle="rgba(0,0,0,"+endGame+")";
-	ctxGUI.rect(0,0,ctxGUI.width,ctxGUI.height);
-	guiDraw();
+	ctxGUI.rect(0,0,canvasGUI.width,canvasGUI.height);
+	guiFill();
+	if (endGame>0.95) {endGame=0; location.reload();}
 }
