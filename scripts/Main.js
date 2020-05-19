@@ -1,5 +1,4 @@
-document.getElementById("window").innerHTML = '<canvas id="Game" width='+window.screen.width+' height='+window.screen.height+
-	'></canvas><canvas id="Interface" width='+window.screen.width+' height='+window.screen.height+'></canvas>';
+document.getElementById("window").innerHTML = '<canvas id="Game" width=1280 height=720></canvas><canvas id="Interface" width=1280 height=720></canvas>';
 var menu = document.getElementById('menu');
 var canvas = document.getElementById("Game");
 var ctx = canvas.getContext("2d");
