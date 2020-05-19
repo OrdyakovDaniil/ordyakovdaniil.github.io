@@ -29,3 +29,5 @@ new Audio("sounds/field.mp3"),
 for (var s=0; s<sound_environment.length; ++s) {
 	sound_environment[s].volume=0.4;
 }
+var sound_glass=new Audio("sounds/glass.mp3");
+var sound_flame=new Audio("sounds/flame.mp3");
