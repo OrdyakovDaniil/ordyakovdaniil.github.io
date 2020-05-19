@@ -119,8 +119,14 @@ function updatePlayer() {
 					player.bag[selectedBag].count=0;
 				}
 				switch (player.bag[selectedBag].id) {
-					case 0: PlaySound("sounds/rifle_reload1.mp3",1); break;
-					case 1: PlaySound("sounds/shotgun_reload1.mp3",1); break;
+					case 0:
+					var s_rifle_rel1=sound_rifle_reload1;
+					s_rifle_rel1.play();
+					break;
+					case 1:
+					var s_shotgun_rel1=sound_shotgun_reload1;
+					s_shotgun_rel1.play();
+					break;
 				}
 				control.up=false; calcWeight();
 			}
@@ -272,9 +278,11 @@ function updatePlayer() {
 		if (control.Lbtn&&player.belt[player.itemBelt].type==3) { //поедание предмета
 			var id = player.belt[player.itemBelt].id;
 			if (id<=3) {
-				PlaySound("sounds/eating.mp3", 1);
+				var s_eating=sound_eating;
+				s_eating.play();
 			} else {
-				PlaySound("sounds/drinking.mp3", 1);
+				var s_drinking=sound_drinking;
+				s_drinking.play();
 			}
 			player.hunger+=used[id].hunger;
 			player.thirst+=used[id].thirst;
