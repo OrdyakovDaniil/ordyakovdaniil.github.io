@@ -31,3 +31,7 @@ for (var s=0; s<sound_environment.length; ++s) {
 }
 var sound_glass=new Audio("sounds/glass.mp3");
 var sound_flame=new Audio("sounds/flame.mp3");
+var sound_rifle_reload1=new Audio("sounds/rifle_reload1.mp3");
+var sound_shotgun_reload1=new Audio("sounds/shotgun_reload1.mp3");
+var sound_eating=new Audio("sounds/eating.mp3");
+var sound_drinking=new Audio("sounds/drinking.mp3");
