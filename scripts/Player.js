@@ -301,7 +301,8 @@ function updatePlayer() {
 		if (control.Lbtn&&player.belt[player.itemBelt].type==5) {
 			switch (player.belt[player.itemBelt].id) {
 				case 0:
-				PlaySound("sounds/flame.mp3", 1);
+				var s_flame=sound_flame;
+				s_flame.play();
 				fireOnGrave.push(newFire(player.x+player.radius*3*Math.cos(player.radian), player.y+player.radius*3*Math.sin(player.radian),
 					player.radian));
 				break;
@@ -315,13 +316,14 @@ function updatePlayer() {
 					if (player.dotsHit.x>=pWindows[w].x&&player.dotsHit.x<=pWindows[w].x+pWindows[w].width&&
 						player.dotsHit.y>=pWindows[w].y&&player.dotsHit.y<=pWindows[w].y+pWindows[w].height) {
 							pWindows[w].whole=false;
-							PlaySound("sounds/glass.mp3",1);
+							var s_glass=sound_glass;
+							s_glass.play();
 						}
 				}
 			}
 			if (player.belt[player.itemBelt].type==0) {
 				if (player.belt[player.itemBelt].id==0) {
-					if (!trigger2) { trigger2=true; PlaySound("sounds/punch0.mp3",1);}
+					if (!trigger2) { trigger2=true; var s_punch=sound_punch; s_punch.play();}
 					player.energy-=0.3;
 					if (!trigger1) {
 						if (player.handA>0) player.handA-=(player.energy>0)?4:2;
@@ -332,7 +334,7 @@ function updatePlayer() {
 					}
 				}
 				if (player.belt[player.itemBelt].id==1) {
-					if (!trigger2) { trigger2=true;  PlaySound("sounds/punch0.mp3",1);}
+					if (!trigger2) { trigger2=true; var s_punch=sound_punch; s_punch.play();}
 					player.energy-=0.5;
 					if (!trigger1) {
 						if (player.handA>-150) player.handA-=(player.energy>0)?10:5;
@@ -344,7 +346,7 @@ function updatePlayer() {
 				}
 			} else {
 				if (player.belt[player.itemBelt].type==null) {
-					if (!trigger2) { trigger2=true;  PlaySound("sounds/punch0.mp3",1);}
+					if (!trigger2) { trigger2=true; var s_punch=sound_punch; s_punch.play();}
 					player.energy-=0.3;
 					if (!trigger1) {
 						if (player.handA>0) player.handA-=(player.energy>0)?4:2;
@@ -366,12 +368,16 @@ function updatePlayer() {
 					switch (gun.id) {
 						case 0: //пули ружья
 						bullet.push(newBullet(barrelX, barrelY, angleToShoot, guns[gun.id].damage, 10, 2, 1.5));
-						PlaySound("sounds/rifle_fire.mp3", 1);
-						PlaySound("sounds/rifle_reload1.mp3", 0.2);
+						var s_rifle_fire=sound_rifle_fire;
+						s_rifle_fire.play();
+						var s_rifle_rel1=sound_rifle_reload1;
+						s_rifle_rel1.play();
 						break;
 						case 1:
-						PlaySound("sounds/shotgun_fire.mp3", 1);
-						PlaySound("sounds/shotgun_reload1.mp3", 0.5);
+						var s_shotgun_fire=sound_shotgun_fire;
+						s_shotgun_fire.play();
+						var s_shotgun_rel1=sound_shotgun_reload1;
+						s_shotgun_rel1.play();
 						bullet.push(newBullet(barrelX, barrelY, angleToShoot-0.03, guns[gun.id].damage, 4, 1, 3));
 						bullet.push(newBullet(barrelX, barrelY, angleToShoot-0.06, guns[gun.id].damage, 4, 1, 3));
 						bullet.push(newBullet(barrelX, barrelY, angleToShoot,   guns[gun.id].damage, 4, 1, 3));
@@ -396,8 +402,8 @@ function updatePlayer() {
 				if (timeReload>gun.timeToReload) {
 					if (need>0&&player.belt[ammoitem].count>0) {
 						switch (player.belt[player.itemBelt].id) {
-							case 0: PlaySound("sounds/rifle_reload0.mp3", 1); break;
-							case 1: PlaySound("sounds/shotgun_reload0.mp3", 1); break;
+							case 0: var s_rifle_rel0=sound_rifle_reload0; s_rifle_rel0.play(); break;
+							case 1: var s_shotgun_rel0=sound_shotgun_reload0; s_shotgun_rel0.play(); break;
 						}
 						++player.belt[player.itemBelt].count;
 						--player.belt[ammoitem].count;
@@ -465,10 +471,12 @@ function updatePlayer() {
 			if (nearDoorID>-1) {
 				if (pDoors[nearDoorID].open) {
 					pDoors[nearDoorID].open=false;
-					PlaySound("sounds/door_close.mp3",1);
+					var s_door_close=sound_door_close;
+					s_door_close.play();
 				} else {
 					pDoors[nearDoorID].open=true;
-					PlaySound("sounds/door_open.mp3",1);
+					var s_door_open=sound_door_open;
+					s_door_open.play();
 				}
 			}
 			for (var i=0; i<itemsOnGrave.length; ++i) { if (end) break;
