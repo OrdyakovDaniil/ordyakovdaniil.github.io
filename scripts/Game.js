@@ -36,7 +36,9 @@ function updateGame() {
 					bullet[b].y>=windows[w].y&&bullet[b].y<=windows[w].y+windows[w].height) {
 						windows[w].whole=false;
 						var vol=100/getDistance(player,windows[w]);
-						PlaySound("sounds/glass.mp3",vol<0?0:vol>1?1:vol);
+						var s_glass=sound_glass;
+						s_glass.volume=vol<0?0:vol>1?1:vol;
+						s_glass.play();
 					}
 			}
 		}
@@ -129,7 +131,9 @@ function updateGame() {
 					if (itemsOnGrave[i].id==0) { //сжигание полена
 						fireOnGrave[f].life=100;
 						itemsOnGrave.splice(i,1);
-						PlaySound("sounds/flame.mp3", 1); fireOnGrave[f].sound_fire.play();
+						var s_flame=sound_flame;
+						s_flame.play();
+						fireOnGrave[f].sound_fire.play();
 					} else {itemsOnGrave[i].x=player.x; itemsOnGrave[i].y=player.y;}
 					break;
 					default: itemsOnGrave[i].x=player.x; itemsOnGrave[i].y=player.y; break;
