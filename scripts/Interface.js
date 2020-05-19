@@ -110,7 +110,7 @@ function drawInterface() {
 	//Пояс
 	for (var bx=0; bx<player.beltLen; ++bx) {
 		ctxGUI.beginPath(); ctxGUI.lineWidth=2; ctxGUI.strokeStyle="black";
-		ctxGUI.fillStyle=(bx==player.itemBelt)?"rgba(100,60,40,0.8)":"rgba(0,0,0,0.3)";
+		ctxGUI.fillStyle=(bx==player.itemBelt)?"rgba(20,100,20,0.8)":"rgba(0,0,0,0.3)";
 		ctxGUI.rect(startpoint+bx*50, h-55, 50, 50); guiDraw();
 		ctxGUI.beginPath(); ctxGUI.fillStyle = "white"; ctxGUI.font = "10px Segoe Print"; ctxGUI.textAlign = "left";
 		ctxGUI.fillText(bx+1, startpoint+bx*50+3, h-43); guiFill();
