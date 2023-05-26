@@ -68,8 +68,9 @@ class Main {
 			//загрузить сохранение
 		}
 		console.log(1);
-		document.onscrollCapture = function () {return false;}
-		
+		document.onscroll = function () {return false;}
+		Layer2.onscroll = function () {return false;}
+		Layer2.oncontextmenu = function () {return false;}
 		this.#start();
 	}
 	getTime() {
