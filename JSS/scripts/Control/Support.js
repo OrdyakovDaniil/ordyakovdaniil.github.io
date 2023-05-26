@@ -2,7 +2,7 @@ let second=0;
 let fps=0;
 let showfps=0;
 function FPS() {
-	drawText(965,880,showfps, 2,0);
+	drawText(965,780,showfps, 2,0);
 	let realTime = new Date();
 	fps++;
 	if (second!=realTime.getSeconds()) {
