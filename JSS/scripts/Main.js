@@ -67,7 +67,7 @@ class Main {
 		if (true) { //если есть сохранение
 			//загрузить сохранение
 		}
-		
+		window.onscroll = function () {return false;}
 		
 		this.#start();
 	}
