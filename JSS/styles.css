@@ -1,0 +1,30 @@
+body {
+	padding: 0; margin: 0;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background: rgb(50,50,50);
+}
+canvas {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+#Game {
+	background: rgb(0,0,0);
+}
+#Layer1, #Layer2 {
+	background: rgba(0,0,0,0);
+}
+#info {
+	color: green;
+	font-size: 20px;
+	display: block;
+	position: fixed;
+	top: 900px;
+	left: 0;
+}
