@@ -68,7 +68,7 @@ class Main {
 			//загрузить сохранение
 		}
 		console.log(1);
-		window.onscroll = function () {return false;}
+		document.onscroll = function () {return false;}
 		
 		this.#start();
 	}
