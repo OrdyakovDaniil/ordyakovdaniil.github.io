@@ -11,25 +11,41 @@ class gameWindow{
 		this.y=y;
 		this.w=width;
 		this.h=height;
-		this.#buttons.close=new Button({text:"~",size:3,dist:0}, this.x+this.w-35,this.y+3,32,32);
+		this.#buttons.close=new Button({text:"~",size:3,dist:0}, this.x+this.w-36,this.y+3,32,32);
 		this.#buttons.close.targetWindow=this;
 		this.#obj=obj;
 		this.#buttons.close.setFunc(()=>{
 			for (let b in this.#buttons) {
-				document.removeEventListener("click",this.#buttons[b].getFunc());
-				document.removeEventListener("mousedown",this.#buttons[b].mouseDown);
+				this.deleteButton(b);
 			}
 			for (let l in this.#lists) {
-				document.removeEventListener("mousedown", this.#lists[l].mouseDown, false);
-				document.removeEventListener("mouseup", this.#lists[l].mouseUp, false);
-				document.removeEventListener("mousemove", this.#lists[l].mouseMove, false);
-				document.removeEventListener("mousewheel", this.#lists[l].mouseWheel, false);
-				for (let b in this.#lists[l].buttons) {
-					document.removeEventListener("click",this.#lists[l].buttons[b].getFunc());
-				}
+				this.deleteList(l);
 			}
 			gamewindow=null;
 		});
+	}
+	deleteList(index) {
+		if (this.#lists[index]) {
+			document.removeEventListener("mousedown", this.#lists[index].mouseDown, false);
+			document.removeEventListener("mouseup", this.#lists[index].mouseUp, false);
+			document.removeEventListener("mousemove", this.#lists[index].mouseMove, false);
+			document.removeEventListener("mousewheel", this.#lists[index].mouseWheel, false);
+			for (let b in this.#lists[index].buttons) {
+				document.removeEventListener("mouseup",this.#lists[index].buttons[b].func);
+				document.removeEventListener("mousedown",this.#lists[index].buttons[b].mouseDown);
+			}
+			delete this.#lists[index];
+		}
+	}
+	deleteButton(index) {
+		if (this.#buttons[index]) {
+			document.removeEventListener("mouseup",this.#buttons[index].func);
+			document.removeEventListener("mousedown",this.#buttons[index].mouseDown);
+			delete this.#buttons[index];
+		}
+	}
+	getObjectName() {
+		return this.#obj.name;
 	}
 	hover() {
 		if ((cursor.x>this.x) && (cursor.x<this.x+this.w) && (cursor.y>this.y) && (cursor.y<this.y+this.h)) {
@@ -71,6 +87,11 @@ class gameWindow{
 			this.#buttons[b].draw();
 		}
 		ctxInterface.globalCompositeOperation="source-over";
+		if (this.#obj.toBuild) {
+			for (let c of this.#obj.peoples) {
+				c.draw();
+			}
+		}
 		this.#obj.drawWindow();
 	}
 }

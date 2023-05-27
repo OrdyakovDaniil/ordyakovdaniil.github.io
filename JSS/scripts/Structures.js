@@ -1,13 +1,80 @@
 class Structures {
 	lvl = 1;
 	name;
-	peoples = [/*Объекты класса люди*/];
+	peoples = [];
 	timeToBuild = {h:0, m:0}; //m для запоминания, чтобы постройки не улучшались в ровное время
 	resources = {}; //ресурсы необходимые для постройки
 	pos={x:0, y:0};
 	size={w:0, h:0};
 	toBuild=false;
 	constructor() {
+		for (let i=0;i<5;++i) {
+			this.peoples[i]=new Cell(115+70*i, 675);
+			this.peoples[i].setFunc(()=>{
+				if (this.name==gamewindow.getObjectName()) {
+					if (gamewindow.getList("peoples")) {
+						gamewindow.deleteList("peoples");
+						gamewindow.deleteButton("sort_fio");
+						gamewindow.deleteButton("sort_status");
+					}
+					for (let c of this.peoples) c.active=false;
+					this.peoples[i].active=true;
+					gamewindow.createButton("sort_fio",{text: LText.sort_fio, size:2, dist: 0}, 10,320, 550,30);
+					gamewindow.getButton("sort_fio").targetWindow = gamewindow;
+					gamewindow.getButton("sort_fio").setAlign(0);
+					gamewindow.createButton("sort_status",{text: LText.status, size:2, dist: 0}, 561,320, 229,30);
+					gamewindow.getButton("sort_status").targetWindow = gamewindow;
+					gamewindow.getButton("sort_status").setAlign(0);
+					gamewindow.createList("peoples", 10,350,780,250);
+					for (let l=0; l<main.getPeoples().length; ++l) {
+						let p=main.getPeoples()[l];
+						if (p.getStatus() == LText.status_free) {
+							console.log(1);
+							let txtm=p.getFullName()+p.getStatus();
+							let space="";
+							for (let k=0;k<=45-txtm.length; k++) space+=" ";
+							let txt=p.getFullName() + space + p.getStatus();
+							gamewindow.getList("peoples").createButton({text: txt, size:2, dist: 0}, 30);
+							let last=gamewindow.getList("peoples").buttons.length-1;
+							gamewindow.getList("peoples").buttons[last].tag.fam = p.getFullName();
+							gamewindow.getList("peoples").buttons[last].tag.status = p.getStatus();
+							gamewindow.getList("peoples").buttons[last].tag.index = l;
+							gamewindow.getList("peoples").buttons[last].targetWindow = gamewindow.getList("peoples");
+							let func1 = () => {
+								this.peoples[i].inner=p;
+								p.setStatus(LText.status_build+' "'+this.name+'"');
+								gamewindow.deleteList("peoples");
+								gamewindow.deleteButton("sort_fio");
+								gamewindow.deleteButton("sort_status");
+								this.peoples[i].active=false;
+							}
+							gamewindow.getList("peoples").buttons[last].setFunc(func1);
+						}
+					}
+					const sort=()=> {
+						for (let j=0; j < gamewindow.getList("peoples").buttons.length; ++j) {
+							let b=gamewindow.getList("peoples").buttons[j];
+							b.y = 5 + j * b.h;
+							b.docY = gamewindow.getList("peoples").y + 5 + j * b.h;
+						}
+					}
+					gamewindow.getButton("sort_fio").setFunc(()=>{
+						if (gamewindow!=null) {
+							order = !order;
+							gamewindow.getList("peoples").buttons.sort(sortBy("tag","fam"));
+							sort();
+						}
+					});
+					gamewindow.getButton("sort_status").setFunc(()=>{
+						if (gamewindow!=null) {
+							order = !order;
+							gamewindow.getList("peoples").buttons.sort(sortBy("tag","status"));
+							sort();
+						}
+					});
+				}
+			});
+		}
 		document.addEventListener("click",this.onclick,false);
 	}
 	createControl() {}
@@ -32,8 +99,10 @@ class Structures {
 			/*if (this.peoples.length>0)*/ this.timeToBuild.h--;
 			console.log(this.name+" "+this.timeToBuild.h);
 			if (gamewindow!=null) {
-				let text=`${LText.timeToBuild}: ${this.timeToBuild.h} ${LText.hour}`;
-				gamewindow.getButton("levelUp"+this.name).context = new ContextWindow(320,50,{text:text, size:1.5, dist:0});
+				if (gamewindow.getObjectName()==this.name) {
+					let text=`${LText.timeToBuild}: ${this.timeToBuild.h} ${LText.hour}`;
+					gamewindow.getButton("levelUp"+this.name).context = new ContextWindow(320,50,{text:text, size:1.5, dist:0});
+				}
 			}
 			if (this.timeToBuild.h<=0) {
 				this.timeToBuild.h=0;
@@ -49,7 +118,7 @@ class Structures {
 	onclick=()=> {
 		if (this.hover() && gamewindow==null) {
 			gamewindow = new gameWindow(Game.width/10,50,Game.width-Game.width/5, Game.height-100, this);
-			gamewindow.createButton("levelUp"+this.name,{text: (this.toBuild)?LText.levelRises:LText.levelUp, size:2, dist: 0}, 620,740, 170,50); //улучшить
+			gamewindow.createButton("levelUp"+this.name,{text: (this.toBuild)?LText.levelRises:LText.levelUp, size:2, dist: 0}, 620,640, 170,50); //улучшить
 			gamewindow.getButton("levelUp"+this.name).targetWindow=gamewindow;
 			gamewindow.getButton("levelUp"+this.name).setFunc(()=>{
 				if (!this.toBuild) {
@@ -66,6 +135,7 @@ class Structures {
 				gamewindow.getButton("levelUp"+this.name).active=true;
 				let text=`${LText.timeToBuild}: ${this.timeToBuild.h} ${LText.hour}`;
 				gamewindow.getButton("levelUp"+this.name).context = new ContextWindow(320,50,{text:text, size:1.5, dist:0});
+				for (let c of this.peoples) c.active=false;
 			} else {
 				let text=`${LText.need}`;
 				for (let i in this.resources) {
@@ -232,60 +302,24 @@ class House extends Structures{
 		ctx.drawImage(this.getImage(32,32,32,32),this.pos.x,this.pos.y,this.size.w,this.size.h);
 	}
 	createControl() { 
-		gamewindow.createButton("sort_fio",{text: LText.sort_fio, size:2, dist: 0}, 10,420, 550,30);
-		gamewindow.getButton("sort_fio").targetWindow = gamewindow;
-		gamewindow.getButton("sort_fio").setAlign(0);
-
-		gamewindow.createButton("sort_status",{text: LText.status, size:2, dist: 0}, 561,420, 229,30);
-		gamewindow.getButton("sort_status").targetWindow = gamewindow;
-		gamewindow.getButton("sort_status").setAlign(0);
-		gamewindow.createList("peoples", 10,450,780,250);
-		for (let i=0; i<main.getPeoples().length; ++i) {
-			let p=main.getPeoples()[i];
-			let txtm=p.getFullName()+p.getStatus();
-			let space="";
-			for (let l=0;l<=45-txtm.length; l++) space+=" ";
-			let txt=p.getFullName() + space + p.getStatus();
-			gamewindow.getList("peoples").createButton(i,{text: txt, size:2, dist: 0}, 30);
-			gamewindow.getList("peoples").buttons[i].tag.fam = p.getFullName()
-			gamewindow.getList("peoples").buttons[i].tag.status = p.getStatus();
-			gamewindow.getList("peoples").buttons[i].tag.index = i;
-			gamewindow.getList("peoples").buttons[i].targetWindow = gamewindow.getList("peoples");
-		}
-		const sort=()=> {
-			for (let i=0; i < gamewindow.getList("peoples").buttons.length; ++i) {
-				let b=gamewindow.getList("peoples").buttons[i];
-				b.y = 5 + i * b.h;
-				b.docY = gamewindow.getList("peoples").y + 5 + i * b.h;
-				b.setFunc(()=>{
-					for (let bb of gamewindow.getList("peoples").buttons) bb.active=false;
-					gamewindow.getList("peoples").buttons[i].active=true;
-				});
-			}
-		}
-		gamewindow.getButton("sort_fio").setFunc(()=>{
-			order = !order;
-			gamewindow.getList("peoples").buttons.sort(sortBy("tag","fam"));
-			sort();
-		});
-		gamewindow.getButton("sort_status").setFunc(()=>{
-			order = !order;
-			gamewindow.getList("peoples").buttons.sort(sortBy("tag","status"));
-			sort();
-		});
+		
 	}
 	drawWindow() {
 		drawText(110,100,`${LText.level}: ${this.lvl}`,2,0);
 		drawText(110,130,`${LText.peoples1}: ${main.getPeoples().length}/${this.#maxPeoples}`,2,0);
-		main.getPeoples()[0].draw(115,200);
+		// main.getPeoples()[0].draw(115,200);
 	}
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Clinic extends Structures {
+	resources={
+		timeToBuild:10
+	}
 	constructor() {
 		super();
 		this.pos={x:Game.width/2+64, y:264};
 		this.size = {w: 128, h: 128};
-		this.name="clinic";
+		this.name="Сlinic";
 	}
 	draw() {
 		ctx.drawImage(this.getImage(64,32,64,32),this.pos.x-128,this.pos.y,this.size.w*2,this.size.h);

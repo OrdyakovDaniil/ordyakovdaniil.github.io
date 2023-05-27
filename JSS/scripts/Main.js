@@ -57,7 +57,7 @@ class Main {
 		for (let i=0; i<30; ++i) {
 			this.#peoples.push(new People());
 		};
-		this.#peoples[0].setStatus("Занят");
+		this.#peoples[0].setStatus(LText.status_lider);
 		this.#base.waterExtract = new WaterExtract();
 		this.#base.waterStorage = new WaterStorage();
 		this.#base.clinic = new Clinic();
@@ -67,10 +67,8 @@ class Main {
 		if (true) { //если есть сохранение
 			//загрузить сохранение
 		}
-		console.log(1);
-		document.onscroll = function () {return false;}
-		Layer2.onscroll = function () {return false;}
 		Layer2.oncontextmenu = function () {return false;}
+		
 		this.#start();
 	}
 	getTime() {

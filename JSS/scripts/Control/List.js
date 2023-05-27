@@ -84,15 +84,16 @@ class List {
 			return true;
 		} return false;
 	}
-	createButton(index, text, height) {
-		this.buttons[index]=new Button(text,5,5+this.buttons.length*height, this.w-20, height);
-		this.buttons[index].ctx = this.ctx;
-		this.buttons[index].docX = this.x+5;
-		this.buttons[index].docY = this.y+5+(this.buttons.length-1)*height;
+	createButton(text, height) {
+		this.buttons.push(new Button(text,5,5+this.buttons.length*height, this.w-20, height));
+		let i=this.buttons.length-1;
+		this.buttons[i].ctx = this.ctx;
+		this.buttons[i].docX = this.x+5;
+		this.buttons[i].docY = this.y+5+i*height;
 		this.ost=this.buttons.length * height - this.h + 10;
-		this.buttons[index].setFunc(()=>{
+		this.buttons[i].setFunc(()=>{
 			for (let b of this.buttons) b.active=false;
-			this.buttons[index].active=true;
+			this.buttons[i].active=true;
 		});
 	}
 
@@ -100,12 +101,9 @@ class List {
 		this.ctx.clearRect(0,0,this.canvas.width, this.canvas.height);
 		this.ctx.save();
 		this.ctx.translate(0,-this.deltaY);
-		for (let i=0; i<this.buttons.length; ++i) {
-			this.buttons[i].draw();
+		for (let b of this.buttons) {
+			b.draw();
 		}
-		// for (let b of this.buttons) {
-		// 	b.draw();
-		// }
 		this.ctx.restore();
 		this.ctx.strokeStyle="rgb(0,0,0)";
 		this.ctx.lineWidth=5;

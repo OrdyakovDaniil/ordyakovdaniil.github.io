@@ -3,7 +3,7 @@ class People {
 	#man;
 	#name;
 	#fam;
-	#status="Свободен";
+	#status=LText.status_free;
 	#hp=100;
 	#eatTime={breakfast: true, lunch: true, dinner: true};
 	#thirst=20;
@@ -100,8 +100,8 @@ class People {
 		if (this.#happy>100) this.#happy=100;
 		if (this.#happy<0) this.#happy=0;
 	}
-	draw(x, y) {
+	draw(x, y, w, h) {
 		// ctxInterface.drawImage(imgPeople.head, this.#img.head.x, this.#img.head.y, 32, 32, 0, 0, 128, 128);
-		ctxInterface.drawImage(this.getImage(), x, y, 256, 256);
+		ctxInterface.drawImage(this.getImage(), x, y, w, h);
 	}
 }

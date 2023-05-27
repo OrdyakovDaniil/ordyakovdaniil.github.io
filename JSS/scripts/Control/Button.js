@@ -57,17 +57,14 @@ class Button {
 		this.setAlign(this.align);
 	}
 	setFunc(func) {
-		document.removeEventListener("click",this.func,false);
+		document.removeEventListener("mouseup",this.func,false);
 		this.func=()=> {
 			if (this.hover() && this.mdown) {
 				this.mdown=false;
-				func(); //console.log(1);
+				func();
 			}
 		}
-		document.addEventListener("click",this.func,false);
-	}
-	getFunc() {
-		return this.func;
+		document.addEventListener("mouseup",this.func,false);
 	}
 	hover() {
 		if (this.targetWindow!=null) {
@@ -81,23 +78,27 @@ class Button {
 						cursor.pointer(); return true;
 					}
 				}
+				this.mdown=false;
 				return false;
 			}
 		}
 	}
 	draw() {
-		// if (inRect(this.x, this.y, this.w, this.h, gamewindow.getPos().x, gamewindow.getPos().y, gamewindow.getSize().w, gamewindow.getSize().h)) {
-			this.ctx.beginPath();
-			this.ctx.fillStyle=(this.hover()||this.active)?"rgb(150,150,150)":"rgb(100,100,100)";
+		this.ctx.beginPath();
+		this.ctx.fillStyle="rgba(0,0,0,0.5)";
+		this.ctx.fillRect(this.x+2, this.y+2, this.w, this.h);
+		this.ctx.fillStyle=(this.hover()||this.active)?"rgb(150,150,150)":"rgb(110,110,110)";
+		if (this.mdown)	{
+			this.ctx.fillRect(this.x+2, this.y+2, this.w, this.h);
+			this.ctx.drawImage(this.imgText, this.x+2, this.y+2);
+		} else {
 			this.ctx.fillRect(this.x, this.y, this.w, this.h);
-			// let cX=this.x+this.w/2-this.text.text.length/2*8*this.text.size;
-			// let cY=this.y+this.h/2-5*this.text.size;
-			// drawText(cX,cY,this.text.text,this.text.size,this.text.dist);
 			this.ctx.drawImage(this.imgText, this.x, this.y);
-			this.ctx.closePath();
-			if (this.context!=undefined) {
-				if (this.hover()) this.context.draw();
-			}
-		// }
+		}
+		
+		this.ctx.closePath();
+		if (this.context!=undefined) {
+			if (this.hover()) this.context.draw();
+		}
 	}
 }
